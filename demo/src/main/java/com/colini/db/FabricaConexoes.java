@@ -21,10 +21,10 @@ public class FabricaConexoes {
         conexoes = new Connection[MAX_CONNECTIONS];
         // Modificar para fazer a conexão corretamente'
         URL_DB = "jdbc:mysql://wagnerweinert.com.br:3306/";  
-        DB_NAME = "info23_SEU_USUARIO";  
+        DB_NAME = "SEU_USUARIO";  
         CON_STRING = URL_DB + DB_NAME;
-        USER = "info23_SEU_USUARIO";  
-        PASSWORD = "info23_SEU_USUARIO";  
+        USER = "SEU_USUARIO";  
+        PASSWORD = "SUA_SENHA";  
     }
     
 
