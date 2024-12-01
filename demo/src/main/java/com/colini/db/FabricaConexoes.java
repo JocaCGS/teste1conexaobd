@@ -19,7 +19,7 @@ public class FabricaConexoes {
 
     private FabricaConexoes() {
         conexoes = new Connection[MAX_CONNECTIONS];
-        // Modificar para fazer a conexão corretamente'
+        // Modificar para fazer a conexão corretamente no phpMyAdmin
         URL_DB = "jdbc:mysql://wagnerweinert.com.br:3306/";  
         DB_NAME = "SEU_USUARIO";  
         CON_STRING = URL_DB + DB_NAME;
