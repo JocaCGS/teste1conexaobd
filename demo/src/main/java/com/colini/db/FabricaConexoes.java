@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.colini.utils.Env;
+
 public class FabricaConexoes {
 
     private static int MAX_CONNECTIONS = 5;
@@ -20,13 +22,12 @@ public class FabricaConexoes {
     private FabricaConexoes() {
         conexoes = new Connection[MAX_CONNECTIONS];
         // Modificar para fazer a conexão corretamente no phpMyAdmin
-        URL_DB = "jdbc:mysql://wagnerweinert.com.br:3306/";  
-        DB_NAME = "SEU_USUARIO";  
+        URL_DB = Env.get("URL_DB");
+        DB_NAME = Env.get("URL_NAME");
         CON_STRING = URL_DB + DB_NAME;
-        USER = "SEU_USUARIO";  
-        PASSWORD = "SUA_SENHA";  
+        USER = Env.get("DB_USER");
+        PASSWORD = Env.get("DB_PASSWORD");
     }
-    
 
     public static FabricaConexoes getInstance() {
         if (instance != null) {

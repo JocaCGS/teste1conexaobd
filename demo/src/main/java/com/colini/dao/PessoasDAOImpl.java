@@ -1,4 +1,4 @@
-package com.colini.controllers;
+package com.colini.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.colini.interfaces.PessoasDAO;
 import com.colini.models.Pessoas;
 
-public class ControlaBD {
+public class PessoasDAOImpl implements PessoasDAO{
 
     public void createTableIfNotExists(Connection connection) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS pessoas (" +

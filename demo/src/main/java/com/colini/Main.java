@@ -2,42 +2,38 @@ package com.colini;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import com.colini.controllers.ControlaBD;
 import com.colini.db.FabricaConexoes;
 import com.colini.models.Pessoas;
+import com.colini.repositories.PessoasRepository;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        List<Pessoas> lista = new ArrayList<>();
-        ControlaBD controladorBD = new ControlaBD();
-        
-        
+        PessoasRepository controladorBD = new PessoasRepository();
+
         try (Connection connection = FabricaConexoes.getInstance().getConnection();) {
             System.out.println("\nConexão aberta!\n\n");
             controladorBD.createTableIfNotExists(connection);
             Scanner scan = new Scanner(System.in);
             String nome, dataNascimento, cpf, email;
             int resposta;
-            
+
             while (true) {
                 System.out.printf("\n");
-                lista = controladorBD.coletaDados(connection);
-                System.out.println("Tamanho da lista: " + lista.size() + "\n");
+                controladorBD.coletaDados(connection);
+                System.out.printf("\n");
                 menuInicial();
                 resposta = scan.nextInt();
                 scan.nextLine();
-                
+
                 switch (resposta) {
                     case 1:
                         nome = solicitarString("Nome: ", scan);
                         dataNascimento = solicitarData("Data de Nascimento (aaaa-MM-dd): ", scan);
                         cpf = solicitarCPF("CPF (11 caracteres): ", scan);
                         email = solicitarString("Email: ", scan);
-                        
+
                         Pessoas pessoa = new Pessoas(nome, dataNascimento, cpf, email);
                         controladorBD.insereDados(pessoa, connection);
                         break;
@@ -56,7 +52,8 @@ public class Main {
                                 controladorBD.alteraNome(nome, cpf, connection);
                                 break;
                             case 2:
-                                cpf = solicitarCPF("CPF da pessoa que a data de nascimento sera alterada (11 caracteres): ", scan);
+                                cpf = solicitarCPF(
+                                        "CPF da pessoa que a data de nascimento sera alterada (11 caracteres): ", scan);
                                 dataNascimento = solicitarData("Data de Nascimento nova (aaaa-MM-dd): ", scan);
                                 controladorBD.alteraDataNascimento(dataNascimento, cpf, connection);
                                 break;
@@ -67,7 +64,7 @@ public class Main {
                                 break;
                             case 0:
                                 break;
-                        
+
                             default:
                                 break;
                         }
@@ -78,7 +75,7 @@ public class Main {
                         System.out.println("Opção inválida.");
                         break;
                 }
-                if(resposta == 0){
+                if (resposta == 0) {
                     break;
                 }
             }
@@ -92,7 +89,6 @@ public class Main {
         System.out.print(mensagem);
         return scan.nextLine();
     }
-    
 
     private static String solicitarData(String mensagem, Scanner scan) {
         String data;
@@ -122,7 +118,7 @@ public class Main {
         return cpf;
     }
 
-    private static void menuInicial(){
+    private static void menuInicial() {
         System.out.println("Menu:");
         System.out.println("1 - Adicionar pessoa");
         System.out.println("2 - Deletar pessoa");
@@ -130,7 +126,7 @@ public class Main {
         System.out.println("0 - Sair");
     }
 
-    private static void menuUpdate(){
+    private static void menuUpdate() {
         System.out.println("\nMenu atualizar:");
         System.out.println("1 - Atualizar nome");
         System.out.println("2 - Atualizar data de nascimento");
